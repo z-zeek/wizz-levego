@@ -1,5 +1,14 @@
 import os
 
+###
+## TODO:
+#   print()-ek hozzaadasa a lepesekhez
+#   foglalas szam implementalasa
+#   foglalasok tarolasanak implementalasa (optionally fileban)
+#   foglalas torles implementalasa foglalas szam alapjan
+##
+###
+
 ## Fő osztályok
 
 ## Járat (absztrakt osztály): Definiálja a járat alapvető attribútumait (járatszám, célállomás, jegyár).
