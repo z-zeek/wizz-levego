@@ -1,14 +1,5 @@
 import os
 
-###
-## TODO:
-#   print()-ek hozzaadasa a lepesekhez
-#   foglalas szam implementalasa
-#   foglalasok tarolasanak implementalasa (optionally fileban)
-#   foglalas torles implementalasa foglalas szam alapjan
-##
-###
-
 ## Fő osztályok
 
 ## Járat (absztrakt osztály): Definiálja a járat alapvető attribútumait (járatszám, célállomás, jegyár).
@@ -53,23 +44,23 @@ class Jarat():
     #class belfoldi_jarat: 
 class Belfoldi_jarat(Jarat):
 
-    def belfoldi_jaratszam(tipus, indulo_repter, erkezo_repter):
+    def belfoldi_jaratszam(indulo_repter, erkezo_repter):
 
         azonositok = {"Vienna" : 17, "Budapest" : 25, "Barcelona" : 31, "Debrecen" : 46, "Stockholm" : 59, "Miskolc" : 63}
 
 
-        jaratszam = tipus + str(azonositok[indulo_repter]) + str(azonositok[erkezo_repter])
+        jaratszam = "BEL" + str(azonositok[indulo_repter]) + str(azonositok[erkezo_repter])
 
         return jaratszam
 
     #class kulfoldi_jarat: 
 class Kulfoldi_jarat(Jarat):
         
-    def kulfoldi_jaratszam(tipus, indulo_repter, erkezo_repter):
+    def kulfoldi_jaratszam(indulo_repter, erkezo_repter):
 
         azonositok = {"Vienna" : 17, "Budapest" : 25, "Barcelona" : 31, "Debrecen" : 46, "Stockholm" : 59, "Miskolc" : 63}
 
-        jaratszam = tipus + azonositok[indulo_repter] + azonositok[erkezo_repter]
+        jaratszam = "KUL" + str(azonositok[indulo_repter]) + str(azonositok[erkezo_repter])
 
         return jaratszam #:)
 
@@ -80,10 +71,8 @@ class Legi_tarsasag(Belfoldi_jarat, Kulfoldi_jarat):
         # legitarsasagok = {}
 
     def calculator(tipus, legitarsasag):
-        legitarsasagok_belfold = {"RyanAir" : 0.78, "GDAir" : 0.8, "WizzAir" : 0.9}
-        legitarsasagok_kulfold = {"RyanAir" : 1.1, "GDAir" : 1.115, "WizzAir" : 1.12}
-
         if(tipus == "BEL"):
+            legitarsasagok_belfold = {"RyanAir" : 0.78, "GDAir" : 0.8, "WizzAir" : 0.9}
             if(legitarsasag in legitarsasagok_belfold):
                 ar = 40000
                 ar = ar * legitarsasagok_belfold[legitarsasag]
@@ -91,6 +80,7 @@ class Legi_tarsasag(Belfoldi_jarat, Kulfoldi_jarat):
                 return ar
             else: print("vele nem tudsz levegozni a levegoben")
         else: 
+            legitarsasagok_kulfold = {"RyanAir" : 1.1, "GDAir" : 1.115, "WizzAir" : 1.12}
             print("add meg kivel akarsz a levegoben levegozni")
 
             if(legitarsasag in legitarsasagok_kulfold):
@@ -106,21 +96,31 @@ class Jegy_foglalas(Jarat):
 
     def jegy_foglalas(self):
         
+        print("ird be az indulo repteret")
+
         indulo_repter = input()
+
+        print("ird be az erkezo repteret")
+
         erkezo_repter = input()
 
         tipus = Jarat.eval(Jarat.kulfoldi_repterek, Jarat.belfoldi_repterek, indulo_repter, erkezo_repter)
 
         if(tipus == "BEL"):
-            jaratszam = Belfoldi_jarat.belfoldi_jaratszam(tipus, indulo_repter, erkezo_repter)
+            jaratszam = Belfoldi_jarat.belfoldi_jaratszam(indulo_repter, erkezo_repter)
         else:
-            jaratszam = Kulfoldi_jarat.kulfoldi_jaratszam(tipus, indulo_repter, erkezo_repter)
+            jaratszam = Kulfoldi_jarat.kulfoldi_jaratszam(indulo_repter, erkezo_repter)
         
         print("add meg kivel akarsz a levegoben levegozni")
+        print("RyanAir")
+        print("Wizzair")
+        print("GDAir")
         legitarsasag = input()
 
 
         ar = Legi_tarsasag.calculator(tipus, legitarsasag)
+
+        print("Foglalas adatai:")
 
         print(indulo_repter + " " + erkezo_repter + " " + jaratszam + " " + str(ar))
 
@@ -149,17 +149,16 @@ class Jegy_foglalas(Jarat):
 class main_menu():
 
     def program(option):
-
+        foglalas = Jegy_foglalas()
         if option == '1':
             ## Foglalasi funkcio
-            foglalas = Jegy_foglalas()
             foglalas.jegy_foglalas()   
         elif option == '2':
             ## Lemondasi funkcio
-            print("meg olyan nincse")
+            print("under implementation")
         elif option == '3':
             ## Listazasi funkcio 
-            print("meg olyan nincse")
+            print("under implementation")
         elif option == '9':
             print("A program bezárása...")
             exit()
@@ -191,6 +190,9 @@ class main_menu():
 if __name__ == "__main__":
     while True:
         print ("valassz opciot")
+        print("1. Jegy foglalasa")
+        print("2. Foglalas lemondasa")
+        print("3. Foglalasok listazasa")
         option = input()
 
         main_menu.program(option)
